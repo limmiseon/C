@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
 
 int main()
 {
@@ -51,6 +53,51 @@ int main()
 	const int
 	MAX_COUNT = 10, MIN_COUNT = 1;	 
 	
+	int inputTicketSelect()
+	{
+	int ticketSelect = 0;
+	int ticketSelect_voucher = 0;
+	int ticketSelect_voucher_kind = 0;
+	
+	
+	
 	printf("이용권을 선택하세요.\n1. 종합이용권\n2. 파크이용권");
+	
+	while(true)
+	{
+		scanf("%d", ticketSelect_voucher);
+		if(ticketSelect_voucher == 1)
+			{
+				printf("권종을 선택하세요.\n1. 주간권\n2. 야간권");
+				scanf("%d", ticketSelect_voucher_kind);
+				if(ticketSelect_voucher == 1 && ticketSelect_voucher_kind == 1)
+				{
+					ticketSelect = 1;
+					break;
+				}
+				else if(ticketSelect_voucher == 1 && ticketSelect_voucher_kind == 2)
+				{
+					ticketSelect = 2;
+					break;
+				}
+			}
+		else if(ticketSlecet_voucher == 2)
+			{
+				printf("권종을 선택하세요.\n1. 주간권\n2. 야간권");
+				scanf("%d", ticketSelect_voucher_kind);
+			}
+				if(ticketSelect_voucher_kind == 2 && ticketSelect_voucher_kind == 1)
+				{
+					ticketSelect = 3;
+					break;
+				}
+				else if(ticketSelect_voucher ==2 && ticketSelect_voucher_kind == 2)
+				{
+					ticketSelect = 4;
+					break;
+				}			
+	}
+	}
 	return 0;
+	}
 }//951001  2170011
