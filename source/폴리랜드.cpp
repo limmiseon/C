@@ -20,6 +20,10 @@ int main ()
 	PARK_BABY_1DAY_PRICE = 15000, PARK_BABY_AFTER4_PRICE = 15000,
 	PARK_OLD_1DAY_PRICE = 46000, PARK_OLD_AFTER4_PRICE = 35000;
 	
+	int ticketSelect = 0;
+	int ticketSelect_voucher = 0;
+	int ticketSelect_voucher_kind = 0;
+	
 	int priceResult ;
 	
 	//주민등록번호 분석
@@ -53,81 +57,77 @@ int main ()
 	COMP_PREGNANT_DISCOUNT_RATE = 0.5, COMP_MULTICHILD_DISCOUNT_RATE = 0.7;
 	
 	
-	int ticketSelect = 0;
-	int ticketSelect_voucher = 0;
-	int ticketSelect_voucher_kind = 0;
-	
 	printf("이용권을 선택하세요.\n1. 종합이용권\n2. 파크이용권\n");
 		while(true){
 			scanf("%d", &ticketSelect_voucher);
-			if(ticketSelect_voucher == 1 || ticketSelect_voucher == 2){
-				break;
-			}
-			else{
-				printf("다시 입력해주세요.\n");	
-			}
+				if(ticketSelect_voucher == 1 || ticketSelect_voucher == 2){
+					break;
+				}
+				else{
+					printf("다시 입력해주세요.\n");	
+				}
 		}
 	printf("권종을 선택하세요.\n1. 주간권\n2. 야간권\n");
 		while(true){
 			scanf("%d", &ticketSelect_voucher_kind);
-			if(ticketSelect_voucher_kind == 1 || ticketSelect_voucher_kind == 2){
-				break;
-			}
-			else{
-				printf("다시 입력해주세요.\n");
-			}
+				if(ticketSelect_voucher_kind == 1 || ticketSelect_voucher_kind == 2){
+					break;
+				}
+				else{
+					printf("다시 입력해주세요.\n");
+				}
 		}
 	printf("주민번호를 입력하세요.\n");
 		while(true){
 			scanf("%lld", &IDNumber);
-			if(IDNumber >= FULL_DIGIT_MIN && IDNumber < FULL_DIGIT){
-				break;
-			}
-			else{
-				printf("다시 입력해주세요.\n");
-			}
+				if(IDNumber >= FULL_DIGIT_MIN && IDNumber < FULL_DIGIT){
+					break;
+				}
+				else{
+					printf("다시 입력해주세요.\n");
+				}
 		}
 	printf("몇개를 주문하시겠습니까? (최대 10개)\n");
 		while(true){
 			scanf("%d", &count);
-			if(count <= MAX_COUNT || count >= MIN_COUNT){
-				break;
-			}
-			else{
-				printf("다시 입력해주세요.\n");
-			}
+				if(count <= MAX_COUNT || count >= MIN_COUNT){
+					break;
+				}	
+				else{
+					printf("다시 입력해주세요.\n");
+				}
 		}
 	printf("우대사항을 선택하세요.\n1. 없음 (나이 우대는 자동처리)\n2. 장애인\n3. 국가유공자\n4. 휴가장병\n5. 임산부\n6. 다둥이 행복카드\n");
 		while(true){
-		scanf("%d", &DiscountRate);
-			if(DiscountRate >=1 || DiscountRate <=6){
-				break;
-			}
-			else{
-				printf("다시 입력해주세요.\n");
-			}
+			scanf("%d", &DiscountRate);
+				if(DiscountRate >=1 || DiscountRate <=6){
+					break;
+				}
+				else{
+					printf("다시 입력해주세요.\n");
+				}
 		}
 	
 	
 	//이용권 선택 
 	if(ticketSelect_voucher == 1){
-			if(ticketSelect_voucher_kind == 1)
-			{
-				ticketSelect = 1;
-			}
-				else if( ticketSelect_voucher_kind == 2)
-			{
-				ticketSelect = 2;
-			}
+		if(ticketSelect_voucher_kind == 1)
+		{
+			ticketSelect = 1;
 		}
+		else if( ticketSelect_voucher_kind == 2)
+		{
+			ticketSelect = 2;
+		}
+	}
 	else if(ticketSelect_voucher == 2){
 		if(ticketSelect_voucher_kind == 1){
 			ticketSelect = 3;
-			}
+		}
 		else if(ticketSelect_voucher_kind == 2){
 			ticketSelect = 4;
-			}	
-		} 
+		}	
+	} 
 	
 	//주민번호 분석
 	
@@ -175,10 +175,10 @@ int main ()
 	if(age < 3){
 		if(ticketSelect == 1){
 			calcPrice = COMP_BABY_1DAY_PRICE;
-			}
+		}
 		else if(ticketSelect == 2){
 			calcPrice = COMP_BABY_AFTER4_PRICE;
-			}
+		}
 		else if(ticketSelect == 3){
 			calcPrice = PARK_BABY_1DAY_PRICE;
 		}
