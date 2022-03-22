@@ -255,7 +255,7 @@ int main ()
 		if(discountRate[index] == 2){
 			calcPrice *= DISABLE_DISCOUNT_RATE;
 		}
-		else if(discountRate[index] == 3){
+		if(discountRate[index] == 3){
 			calcPrice *= MERIT_DISCOUNT_RATE;
 		}
 		if(ticketSelect == 1 || ticketSelect == 2){
@@ -313,15 +313,15 @@ int main ()
 		{
 			printf("유아 ");
 		}
-		else if((age[index] >= 3) && (age[index] <= 12))
+		else if(age[index] >= 3 && age[index] <= 12)
 		{
 			printf("어린이 ");
 		}
-		else if((age[index] >= 13) && (age[index] <= 18))
+		else if(age[index] >= 13 && age[index] <= 18)
 		{
 			printf("청소년 ");
 		}
-		else if((age[index] >= 19 && age[index] <= 64))
+		else if(age[index] >= 19 && age[index] <= 64)
 		{
 			printf("어른 ");
 		}
