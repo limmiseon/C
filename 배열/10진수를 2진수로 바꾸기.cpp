@@ -20,7 +20,10 @@ int main()
 	return 0;
 }
 
-/*binary 0 = 1
+/*
+binary 0 = 1
 binary 1 = 0
 binary 2 = 1
-binary 3 = 1 */
+binary 3 = 1
+binary 4 = ¾²·¹±â 
+*/
