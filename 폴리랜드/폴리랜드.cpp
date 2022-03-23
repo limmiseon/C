@@ -13,7 +13,8 @@ int main ()
 	int
 	index = 0;
 	 
-	const int //상수도 배열로 하면 편하다. 
+	//티켓 가격 
+	const int
 	//종합이용권 권종별 가격 
 	COMP_ADULT_1DAY_PRICE = 59000, COMP_ADULT_AFTER4_PRICE = 48000,
 	COMP_TEEN_1DAY_PRICE = 52000, COMP_TEEN_AFTER4_PRICE = 42000,
@@ -28,12 +29,8 @@ int main ()
 	PARK_BABY_1DAY_PRICE = 15000, PARK_BABY_AFTER4_PRICE = 15000,
 	PARK_OLD_1DAY_PRICE = 46000, PARK_OLD_AFTER4_PRICE = 35000;
 	
-	int ticketSelect = 0;
-	int ticketSelect_voucher = 0;
-	int ticketSelect_voucher_kind = 0;
-	
-	int priceResult = 0;
-	int totalprice = 0;
+	int ticketSelect = 0, ticketSelect_voucher = 0, ticketSelect_voucher_kind = 0,
+		calcPrice = 0, priceResult = 0, totalprice = 0;
 	
 	//주민등록번호 분석
 	long long int IDNumber = 0;
@@ -74,7 +71,8 @@ int main ()
 		index = 0,
 		totalprice = 0;
 	
-		while(true){
+		while(true)
+		{
 			//변수 초기화 
 			ticketSelect_voucher = 0, ticketSelect_voucher_kind = 0,
 			age = 0, count = 0,
@@ -153,7 +151,6 @@ int main ()
 			} 
 			
 			//주민번호 분석
-			
 			IDNumber += FULL_DIGIT;
 			calcIDNumber = IDNumber / SEVEN_DIGIT;
 			type = calcIDNumber % 10; //뒷자리 첫 번호
@@ -308,7 +305,8 @@ int main ()
 			}	
 		}
 		FILE *filePointer = fopen("report.csv", "a");
-		//출력 
+		
+		//영수증 출력 
 		printf("========================== 폴리랜드 ==========================\n");
 		
 		for(int i = 0; i < index; i++)
@@ -395,6 +393,4 @@ int main ()
 	}
 	return 0;
 }
-
-//영수증 출력 후 전체적으로 한번 더 돌아야됨. (다음손님 받기위해) . 영업 종료도 넣기! 
 
