@@ -7,13 +7,12 @@ int main ()
 	//배열 선언
 	int
 	ArrticketSelect_voucher[10] = {0}, ArrticketSelect_voucher_kind[10] = {0},
-	Arrage[10] = {0}, Arrcount[10] = {0},
-	ArrpriceResult[10] = {0}, ArrdiscountRate[10] = {0}, Arrtotalprice[10] = {0};
+	Arrage[10] = {0}, ArrageCase[10] = {0},
+	Arrcount[10] = {0}, ArrpriceResult[10] = {0}, ArrdiscountRate[10] = {0}, Arrtotalprice[10] = {0};
 	
 	int
 	index = 0;
 	 
-	//티켓 가격 
 	const int
 	//종합이용권 권종별 가격 
 	COMP_ADULT_1DAY_PRICE = 59000, COMP_ADULT_AFTER4_PRICE = 48000,
@@ -29,8 +28,12 @@ int main ()
 	PARK_BABY_1DAY_PRICE = 15000, PARK_BABY_AFTER4_PRICE = 15000,
 	PARK_OLD_1DAY_PRICE = 46000, PARK_OLD_AFTER4_PRICE = 35000;
 	
-	int ticketSelect = 0, ticketSelect_voucher = 0, ticketSelect_voucher_kind = 0,
-		calcPrice = 0, priceResult = 0, totalprice = 0;
+	int ticketSelect = 0;
+	int ticketSelect_voucher = 0;
+	int ticketSelect_voucher_kind = 0;
+	
+	int priceResult = 0;
+	int totalprice = 0;
 	
 	//주민등록번호 분석
 	long long int IDNumber = 0;
@@ -44,11 +47,27 @@ int main ()
 	int customerYear = 0, customerMonth = 0, customerDay = 0; // 구매자 생년월일
 	int type = 0; //2000년생 구분
 	int koreanAge = 0, age = 0; //만나이 계산 
+	int ageCase = 0;
 	
 	const int
 	TWO_DIGIT = 100, ONE_DIGIT = 10,
 	OLD_GENERATION = 1900, NEW_GENERATION = 2000,
-	MALE_OLD = 1, FEMALE_OLD = 2, MALE_NEW = 3, FEMAIL_NEW = 4;
+	MALE_OLD = 1, FEMALE_OLD = 2, MALE_NEW = 3, FEMAIL_NEW = 4,
+	
+	MIN_BABY = 1, MIN_CHILD = 3, MIN_TEEN = 13, MIN_ADULT = 19,
+				  MAX_CHILD = 12, MAX_TEEN = 18, MAX_ADULT = 64;
+				  
+	//오늘 날짜 구하기
+	int todayYear = 0, todayMonth = 0, todayDay = 0;
+			
+	time_t timer;
+	struct tm* t;
+	timer = time(NULL);
+	t = localtime(&timer);
+			
+	todayYear = t->tm_year + OLD_GENERATION;
+	todayMonth = t->tm_mon + 1;
+	todayDay = t->tm_mday; 
 
 	//최대 주문량
 	int count = 0;
@@ -71,8 +90,7 @@ int main ()
 		index = 0,
 		totalprice = 0;
 	
-		while(true)
-		{
+		while(true){
 			//변수 초기화 
 			ticketSelect_voucher = 0, ticketSelect_voucher_kind = 0,
 			age = 0, count = 0,
@@ -151,6 +169,7 @@ int main ()
 			} 
 			
 			//주민번호 분석
+			
 			IDNumber += FULL_DIGIT;
 			calcIDNumber = IDNumber / SEVEN_DIGIT;
 			type = calcIDNumber % 10; //뒷자리 첫 번호
@@ -168,18 +187,6 @@ int main ()
 				customerYear += NEW_GENERATION;
 			}
 			
-			//오늘 날짜 구하기
-			int todayYear = 0, todayMonth = 0, todayDay = 0;
-			
-			time_t current;
-			time(&current);
-			struct tm* structTime;
-			structTime = localtime(&current);
-			
-			todayYear = structTime->tm_year + OLD_GENERATION;
-			todayMonth = structTime->tm_mon + 1;
-			todayDay = structTime->tm_mday;
-			
 			koreanAge = todayYear - customerYear + 1;
 			
 			//만나이 계산 
@@ -189,11 +196,34 @@ int main ()
 			else{
 				age = koreanAge - 2;
 			}
-			
+			//나이 케이스
+			if(age < MIN_CHILD && age >= MIN_BABY)//유아 
+			{
+				ageCase = 1;
+			}
+			else if(age < MAX_CHILD && age >= MIN_CHILD)//어린이 
+			{
+				ageCase = 2;
+			}
+			else if(age < MAX_TEEN && age >= MIN_TEEN)//청소년 
+			{
+				ageCase = 3;
+			}
+			else if(age < MAX_ADULT && age >= MIN_ADULT)//어른 
+			{
+				ageCase = 4;
+			}
+			else if(age > 64)//노인 
+			{
+				ageCase = 5;
+			}
+			else{//(age < MIN_BABY) 영아 
+				ageCase = 6;
+			}
 			//티켓과 나이에 따른 금액 계산
 			int calcPrice = 0;
 			
-			if(age < 3){
+			if(ageCase == 1){
 				if(ticketSelect == 1){
 					calcPrice = COMP_BABY_1DAY_PRICE;
 				}
@@ -203,11 +233,11 @@ int main ()
 				else if(ticketSelect == 3){
 					calcPrice = PARK_BABY_1DAY_PRICE;
 				}
-				else if(ticketSelect == 4){
+				else{//(ticketSelect == 4)
 					calcPrice = PARK_BABY_AFTER4_PRICE;
 				}
 			}
-			if(age >= 3 && age <= 12){
+			if(ageCase == 2){
 				if(ticketSelect == 1){
 					calcPrice = COMP_CHILD_1DAY_PRICE;
 				}
@@ -217,11 +247,11 @@ int main ()
 				else if(ticketSelect == 3){
 					calcPrice = PARK_CHILD_1DAY_PRICE;
 				}
-				else if(ticketSelect == 4){
+				else{//(ticketSelect == 4)
 					calcPrice = PARK_CHILD_AFTER4_PRICE;
 				}
 			}
-			if(age >= 13 && age <= 18){
+			if(ageCase == 3){
 				if(ticketSelect == 1){
 					calcPrice = COMP_TEEN_1DAY_PRICE;
 				}
@@ -231,11 +261,11 @@ int main ()
 				else if(ticketSelect == 3){
 					calcPrice = PARK_TEEN_1DAY_PRICE;
 				}
-				else if(ticketSelect == 4){
+				else{//(ticketSelect == 4)
 					calcPrice = PARK_TEEN_AFTER4_PRICE;
 				}
 			}
-			if(age >= 19 && age <= 64){
+			if(ageCase == 4){
 				if(ticketSelect == 1){
 					calcPrice = COMP_ADULT_1DAY_PRICE;
 				}
@@ -245,11 +275,11 @@ int main ()
 				else if(ticketSelect == 3){
 					calcPrice = PARK_ADULT_1DAY_PRICE;
 				}
-				else if(ticketSelect == 4){
+				else{//(ticketSelect == 4)
 					calcPrice = PARK_ADULT_AFTER4_PRICE;
 				}
 			}
-			if(age > 64){
+			if(ageCase == 5){
 				if(ticketSelect == 1){
 					calcPrice = COMP_OLD_1DAY_PRICE;
 				}
@@ -259,7 +289,7 @@ int main ()
 				else if(ticketSelect == 3){
 					calcPrice = PARK_OLD_1DAY_PRICE;
 				}
-				else if(ticketSelect == 4){
+				else{//(ticketSelect == 4)
 					calcPrice = PARK_OLD_AFTER4_PRICE;
 				}
 			}
@@ -292,7 +322,7 @@ int main ()
 			
 			ArrticketSelect_voucher[index] = ticketSelect_voucher;
 			ArrticketSelect_voucher_kind[index] = ticketSelect_voucher_kind;
-			Arrage[index] = age;
+			ArrageCase[index] = ageCase;
 			Arrcount[index] = count;
 			ArrpriceResult[index] = priceResult;
 			ArrdiscountRate[index] = discountRate;
@@ -305,14 +335,14 @@ int main ()
 			}	
 		}
 		FILE *filePointer = fopen("report.csv", "a");
-		
-		//영수증 출력 
+		 
+		//출력 
 		printf("========================== 폴리랜드 ==========================\n");
 		
 		for(int i = 0; i < index; i++)
 		{
-			fprintf(filePointer, "%d,%d,%d,%d,%d\n", ArrticketSelect_voucher[i], ArrticketSelect_voucher_kind[i], Arrage[i],
-														Arrcount[i], ArrpriceResult[i]);
+			fprintf(filePointer, "%d,%02d,%02d,%d,%d,%d,%d,%d,%d\n", t->tm_year+1900, t->tm_mon+1, t->tm_mday, ArrticketSelect_voucher[i],
+			ArrticketSelect_voucher_kind[i], ArrageCase[i], Arrcount[i], ArrpriceResult[i],ArrdiscountRate[i]);
 			switch(ArrticketSelect_voucher[i])
 			{
 				case 1:
@@ -332,25 +362,29 @@ int main ()
 					break;
 			}		
 			
-			if(Arrage[i] < 3)
+			if(ArrageCase[i] == 1)
 			{
 				printf("유아 ");
 			}
-			else if(Arrage[i] >= 3 && Arrage[i] <= 12)
+			else if(ArrageCase[i] == 2)
 			{
 				printf("어린이 ");
 			}
-			else if(Arrage[i] >= 13 && Arrage[i] <= 18)
+			else if(Arrage[i] == 3)
 			{
 				printf("청소년 ");
 			}
-			else if(Arrage[i] >= 19 && Arrage[i] <= 64)
+			else if(Arrage[i] == 4)
 			{
 				printf("어른 ");
 			}
-			else
+			else if(Arrage[i] == 5)
 			{
 				printf("노인 ");
+			}
+			else//(Arrage[i] == 6)
+			{
+				printf("영아 ");
 			}
 			
 			printf("X %d ", Arrcount[i]);
