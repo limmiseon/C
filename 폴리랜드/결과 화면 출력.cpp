@@ -16,7 +16,6 @@ int main()
 	int totalSales = 0;
 	int discount[MAX] = {0};
 	
-		
 	while(fscanf(fp, "%d,%d,%d,%d,%d,%d,%d,%d,%d", &year[count], &month[count], &day[count], &ArrticketSelect_voucher[count],
 	&ArrticketSelect_voucher_kind[count], &ArrageCase[count], &Arrcount[count], &ArrpriceResult[count], &ArrdiscountRate[count]) != -1)
 		{
@@ -36,81 +35,94 @@ int main()
 	printf("\n---------------------------------------------------------------------\n\n\n");
 	printf("======================== 이용권 별 판매현황 ========================\n\n");
 	
-	for(int index = 0; index < count; index++)
+	for(int index1 = 0; index1 < count; index1++)
 	{
-		if(ArrticketSelect_voucher[index] == 1)
+		if(ArrticketSelect_voucher[index1] == 1)
 		{
-			amount_ticketselect_comp += Arrcount[index];
-			sales_comp += ArrpriceResult[index];
+			amount_ticketselect_comp += Arrcount[index1];
+			sales_comp += ArrpriceResult[index1];
 			
-			if(ArrageCase[index] == 1)
+			if(ArrageCase[index1] == 1)
 			{
-				ticketselect_comp[0] += Arrcount[index];
+				ticketselect_comp[0] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 2)
+			else if(ArrageCase[index1] == 2)
 			{
-				ticketselect_comp[1] += Arrcount[index];
+				ticketselect_comp[1] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 3)
+			else if(ArrageCase[index1] == 3)
 			{
-				ticketselect_comp[2] += Arrcount[index];
+				ticketselect_comp[2] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 4)
+			else if(ArrageCase[index1] == 4)
 			{
-				ticketselect_comp[3] += Arrcount[index];
+				ticketselect_comp[3] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 5)
+			else if(ArrageCase[index1] == 5)
 			{
-				ticketselect_comp[4] += Arrcount[index];
+				ticketselect_comp[4] += Arrcount[index1];
 			}
 			else
 			{
-				amount_ticketselect_comp --;
+				ticketselect_comp[5] += Arrcount[index1];
 			}
 		}
 		
-		if(ArrticketSelect_voucher[index] == 2)
+		if(ArrticketSelect_voucher[index1] == 2)
 		{
-			amount_ticketselect_park += Arrcount[index];
-			sales_park += ArrpriceResult[index];
+			amount_ticketselect_park += Arrcount[index1];
+			sales_park += ArrpriceResult[index1];
 			
-			if(ArrageCase[index] == 1)
+			if(ArrageCase[index1] == 1)
 			{
-				ticketselect_park[0] += Arrcount[index];
+				ticketselect_park[0] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 2)
+			else if(ArrageCase[index1] == 2)
 			{
-				ticketselect_park[1] += Arrcount[index];
+				ticketselect_park[1] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 3)
+			else if(ArrageCase[index1] == 3)
 			{
-				ticketselect_park[2] += Arrcount[index];
+				ticketselect_park[2] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 4)
+			else if(ArrageCase[index1] == 4)
 			{
-				ticketselect_park[3] += Arrcount[index];
+				ticketselect_park[3] += Arrcount[index1];
 			}
-			else if(ArrageCase[index] == 5)
+			else if(ArrageCase[index1] == 5)
 			{
-				ticketselect_park[4] += Arrcount[index];
+				ticketselect_park[4] += Arrcount[index1];
 			}
 			else
 			{
-				amount_ticketselect_park --;
+				ticketselect_park[5] += Arrcount[index1];
 			}
 		}		
 	}
 	
 	printf("종합이용권 총 %d매\n", amount_ticketselect_comp);
-	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
-		  ticketselect_comp[0], ticketselect_comp[1], ticketselect_comp[2], ticketselect_comp[3], ticketselect_comp[4]);
+	printf("영아 %d매, 유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
+		  ticketselect_comp[5], ticketselect_comp[0], ticketselect_comp[1], ticketselect_comp[2], ticketselect_comp[3], ticketselect_comp[4]);
 	printf("종합이용권 매출 : %d원\n\n", sales_comp);
 	
 	printf("파크이용권 총 %d매\n", amount_ticketselect_park);
-	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
-		  ticketselect_park[0], ticketselect_park[1], ticketselect_park[2], ticketselect_park[3], ticketselect_park[4]);
+	printf("영아 %d매, 유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
+		  ticketselect_park[5], ticketselect_park[0], ticketselect_park[1], ticketselect_park[2], ticketselect_park[3], ticketselect_park[4]);
 	printf("종합이용권 매출 : %d원\n\n", sales_park);	
 	printf("--------------------------------------------------------------------\n\n\n");
+	
+	//출력
+	FILE *fp1 = fopen("이용권별 판매 개수.csv", "a"); 
+	fprintf(fp1, "구분, 종합이용권, 파크이용권\n");
+	fprintf(fp1, "%s,%d,%d\n", "영아", ticketselect_comp[5], ticketselect_park[5]);
+	fprintf(fp1, "%s,%d,%d\n", "유아", ticketselect_comp[0], ticketselect_park[0]);
+	fprintf(fp1, "%s,%d,%d\n", "어린이", ticketselect_comp[1], ticketselect_park[1]);
+	fprintf(fp1, "%s,%d,%d\n", "청소년", ticketselect_comp[2], ticketselect_park[2]);
+	fprintf(fp1, "%s,%d,%d\n", "어른", ticketselect_comp[3], ticketselect_park[3]);
+	fprintf(fp1, "%s,%d,%d\n", "노인", ticketselect_comp[4], ticketselect_park[4]);
+	fprintf(fp1, "%s,%d,%d\n", "합계", amount_ticketselect_comp, amount_ticketselect_park);
+	fprintf(fp1, "%s,%d,%d\n", "매출", sales_comp, sales_park);
+	fclose(fp1);
 	
 	printf("===== 우대권 판매 현황 =====\n\n");
 	
@@ -151,7 +163,18 @@ int main()
 	printf("휴가장병           :   %d매\n", discount[3]);
 	printf("임산부             :   %d매\n", discount[4]);
 	printf("다둥이 행복카드    :   %d매\n\n", discount[5]);
-	printf("----------------------------\n\n");			
+	printf("----------------------------\n\n");	
+	
+	//출력
+	FILE *fp2 = fopen("우대권 판매 개수.csv", "a"); 
+	fprintf(fp2, "%s,%d\n", "총 판매티켓수", totalSales);
+	fprintf(fp2, "%s,%d\n", "우대 없음", discount[0]);
+	fprintf(fp2, "%s,%d\n", "장애인", discount[1]);
+	fprintf(fp2, "%s,%d\n", "국가유공자", discount[2]);
+	fprintf(fp2, "%s,%d\n", "휴가장병", discount[3]);
+	fprintf(fp1, "%s,%d\n", "임산부", discount[4]);
+	fprintf(fp1, "%s,%d\n", "다둥이 행복카드", discount[5]);
+	fclose(fp2);		
 	
 	return 0;
 }
