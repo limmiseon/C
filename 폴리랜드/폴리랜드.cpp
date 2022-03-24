@@ -48,7 +48,7 @@ MALE_OLD = 1, FEMALE_OLD = 2, MALE_NEW = 3, FEMAIL_NEW = 4,
 MIN_BABY = 1, MIN_CHILD = 3, MIN_TEEN = 13, MIN_ADULT = 19,
 			  MAX_CHILD = 12, MAX_TEEN = 18, MAX_ADULT = 64;
 				  
-//오늘 날짜 구하기
+//오늘 날짜
 int todayYear = 0, todayMonth = 0, todayDay = 0;
 
 //최대 주문량
@@ -429,7 +429,8 @@ void final_countinew_select()
 }
 
 int main ()
-{
+{	
+	//오늘 날짜 
 	time_t timer;
 	struct tm* t;
 	timer = time(NULL);
@@ -447,8 +448,7 @@ int main ()
 		while(true)
 		{
 			ticketSelect_voucher = 0, ticketSelect_voucher_kind = 0,
-			age = 0, count = 0,
-			priceResult = 0, discountRate = 0;
+			age = 0, count = 0, priceResult = 0, discountRate = 0;
 			
 			//정보 입력 
 			inputdata();
