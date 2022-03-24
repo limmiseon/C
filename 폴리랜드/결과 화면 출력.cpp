@@ -10,12 +10,11 @@ int main()
 		ArrageCase[MAX], Arrcount[MAX], ArrpriceResult[MAX], ArrdiscountRate[MAX];
 		
 	int amount_ticketselect_comp = 0, amount_ticketselect_park = 0;
-	int baby_comp = 0, child_comp = 0, teen_comp = 0, adult_comp = 0, old_comp = 0, newborn_comp = 0,
-		baby_park = 0, child_park = 0, teen_park = 0, adult_park = 0, old_park = 0, newborn_park = 0;	
+	int ticketselect_comp[MAX] = {0}, ticketselect_park[MAX] = {0};	
 	int sales_comp = 0, sales_park = 0;
 	
-	int totalSales = 0,
-		discount_no = 0, discount_disable = 0, discount_merit = 0, discount_army = 0, discount_pregnant = 0, discount_multichild = 0;
+	int totalSales = 0;
+	int discount[MAX] = {0};
 	
 		
 	while(fscanf(fp, "%d,%d,%d,%d,%d,%d,%d,%d,%d", &year[count], &month[count], &day[count], &ArrticketSelect_voucher[count],
@@ -46,23 +45,23 @@ int main()
 			
 			if(ArrageCase[index] == 1)
 			{
-				baby_comp ++;
+				ticketselect_comp[0] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 2)
 			{
-				child_comp ++;
+				ticketselect_comp[1] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 3)
 			{
-				teen_comp ++;
+				ticketselect_comp[2] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 4)
 			{
-				adult_comp ++;
+				ticketselect_comp[3] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 5)
 			{
-				old_comp ++;
+				ticketselect_comp[4] += Arrcount[index];
 			}
 			else
 			{
@@ -77,23 +76,23 @@ int main()
 			
 			if(ArrageCase[index] == 1)
 			{
-				baby_park ++;
+				ticketselect_park[0] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 2)
 			{
-				child_park ++;
+				ticketselect_park[1] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 3)
 			{
-				teen_park ++;
+				ticketselect_park[2] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 4)
 			{
-				adult_park ++;
+				ticketselect_park[3] += Arrcount[index];
 			}
 			else if(ArrageCase[index] == 5)
 			{
-				old_park ++;
+				ticketselect_park[4] += Arrcount[index];
 			}
 			else
 			{
@@ -103,11 +102,13 @@ int main()
 	}
 	
 	printf("종합이용권 총 %d매\n", amount_ticketselect_comp);
-	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n", baby_comp, child_comp, teen_comp, adult_comp, old_comp);
+	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
+		  ticketselect_comp[0], ticketselect_comp[1], ticketselect_comp[2], ticketselect_comp[3], ticketselect_comp[4]);
 	printf("종합이용권 매출 : %d원\n\n", sales_comp);
 	
 	printf("파크이용권 총 %d매\n", amount_ticketselect_park);
-	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n", baby_park, child_park, teen_park, adult_park, old_park);
+	printf("유아 %d매, 어린이 %d매, 청소년 %d매, 어른 %d매, 노인 %d매\n",
+		  ticketselect_park[0], ticketselect_park[1], ticketselect_park[2], ticketselect_park[3], ticketselect_park[4]);
 	printf("종합이용권 매출 : %d원\n\n", sales_park);	
 	printf("--------------------------------------------------------------------\n\n\n");
 	
@@ -119,37 +120,37 @@ int main()
 		
 		if(ArrdiscountRate[index] == 1)
 		{
-			discount_no += Arrcount[index];
+			discount[0] += Arrcount[index];
 		}
 		else if(ArrdiscountRate[index] == 2)
 		{
-			discount_disable += Arrcount[index];
+			discount[1] += Arrcount[index];
 		}
 		else if(ArrdiscountRate[index] == 3)
 		{
-			discount_merit += Arrcount[index];
+			discount[2] += Arrcount[index];
 		}
 		else if(ArrdiscountRate[index] == 4)
 		{
-			discount_army += Arrcount[index];
+			discount[3] += Arrcount[index];
 		}
 		else if(ArrdiscountRate[index] == 5)
 		{
-			discount_pregnant += Arrcount[index];
+			discount[4] += Arrcount[index];
 		}
 		else
 		{
-			discount_multichild += Arrcount[index];
+			discount[5] += Arrcount[index];
 		}
 	}
 	
 	printf("총 판매 티켓수     :   %d매\n", totalSales);
-	printf("우대 없음          :   %d매\n", discount_no);
-	printf("장애인             :   %d매\n", discount_disable);
-	printf("국가유공자         :   %d매\n", discount_merit);
-	printf("휴가장병           :   %d매\n", discount_army);
-	printf("임산부             :   %d매\n", discount_pregnant);
-	printf("다둥이 행복카드    :   %d매\n\n", discount_multichild);
+	printf("우대 없음          :   %d매\n", discount[0]);
+	printf("장애인             :   %d매\n", discount[1]);
+	printf("국가유공자         :   %d매\n", discount[2]);
+	printf("휴가장병           :   %d매\n", discount[3]);
+	printf("임산부             :   %d매\n", discount[4]);
+	printf("다둥이 행복카드    :   %d매\n\n", discount[5]);
 	printf("----------------------------\n\n");			
 	
 	return 0;
