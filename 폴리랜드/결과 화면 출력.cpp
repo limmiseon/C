@@ -176,5 +176,33 @@ int main()
 	fprintf(fp1, "%s,%d\n", "다둥이 행복카드", discount[5]);
 	fclose(fp2);		
 	
+	//출력
+	FILE *fp3 = fopen("일자별 매출 현황.csv", "a");
+	fprintf(fp3, "일자, 총 매출\n");
+	
+	printf("=========== 일자별 매출 현황 ===========\n\n");	
+	for(int i = 0, j = i + 1; i < count; i++, j++)
+	{
+		if((year[i] == year[j]) && (month[i] == month[j]) && (day[i] == day[j]))
+		{	
+			while(day[i] == day[j])
+			{
+				ArrpriceResult[i] += ArrpriceResult[j];
+				j++;	
+			}
+			printf("%d년 %02d월 %02d일 : 총 매출 %8d\n", year[i], month[i], day[i], ArrpriceResult[i]);
+			fprintf(fp1, "%d-%d-%d,%d\n", year[i], month[i], day[i], ArrpriceResult[i]);
+			i = j - 1;
+			j = i + 1;
+		}
+		else
+		{
+			printf("%d년 %02d월 %02d일 : 총 매출 %8d\n", year[i], month[i], day[i], ArrpriceResult[i]);
+			fprintf(fp1, "%d-%d-%d,%d\n", year[i], month[i], day[i], ArrpriceResult[i]);
+		}
+	}
+	fclose(fp2);
+	printf("\n---------------------------------------\n\n");	
+	
 	return 0;
 }
